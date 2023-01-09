@@ -1,5 +1,9 @@
+extern crate serde;
+extern crate serde_json;
+
 use anyhow::Result;
 use clap::{Args, Parser, Subcommand};
+use serde::{Deserialize, Serialize};
 
 #[derive(Args)]
 struct AddArgs {
@@ -25,12 +29,21 @@ struct Cli {
     action: Action,
 }
 
+#[derive(Debug, Deserialize, Serialize)]
+struct Storage {
+    items: Vec<String>,
+}
+
 fn main() -> Result<()> {
     let args = Cli::parse();
 
     match args.action {
         Action::Add(_) => {
-            println!("ADD")
+            println!("ADD");
+            let storage = Storage {
+                items: vec!["foo".to_string(), "bar".to_string(), "baz".to_string()],
+            };
+            println!("{}", serde_json::to_string(&storage).unwrap());
         }
         Action::Ls(_) => {
             println!("LS")
