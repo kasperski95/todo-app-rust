@@ -1,10 +1,11 @@
-mod fs;
-
 extern crate serde;
 extern crate serde_json;
 
+mod lib;
+
 use anyhow::Result;
 use clap::{Args, Parser, Subcommand};
+use lib::{JSONTodoRepository, TodoController};
 use serde::{Deserialize, Serialize};
 
 #[derive(Args)]
@@ -48,7 +49,15 @@ fn main() -> Result<()> {
             println!("{}", serde_json::to_string(&storage).unwrap());
         }
         Action::Ls(_) => {
-            println!("LS")
+            println!("LS");
+            let json_todo_repository = JSONTodoRepository {};
+            let todo_controller = TodoController {
+                todo_repository: &json_todo_repository,
+            };
+            let todos = todo_controller.show_all();
+            for todo in todos {
+                println!("{}", todo.name)
+            }
         }
     }
 
