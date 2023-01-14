@@ -9,7 +9,6 @@ use anyhow::Result;
 use clap::{Args, Parser, Subcommand};
 use controllers::TodoController;
 use repositories::JSONTodoRepository;
-use serde::{Deserialize, Serialize};
 
 #[derive(Args)]
 struct AddArgs {
@@ -18,26 +17,18 @@ struct AddArgs {
     storage_path: std::path::PathBuf,
 }
 
-#[derive(Args)]
-struct LsArgs {
-    #[arg(short, long)]
-    storage_path: std::path::PathBuf,
-}
-
 #[derive(Subcommand)]
 enum Action {
     Add(AddArgs),
-    Ls(LsArgs),
+    Ls,
 }
 #[derive(Parser)]
 struct Cli {
     #[clap(subcommand)]
     action: Action,
-}
 
-#[derive(Debug, Deserialize, Serialize)]
-struct Storage {
-    items: Vec<String>,
+    #[arg(short, long)]
+    storage_path: std::path::PathBuf,
 }
 
 fn main() -> Result<()> {
@@ -45,21 +36,22 @@ fn main() -> Result<()> {
 
     match args.action {
         Action::Add(_) => {
-            println!("ADD");
-            let storage = Storage {
-                items: vec!["foo".to_string(), "bar".to_string(), "baz".to_string()],
-            };
-            println!("{}", serde_json::to_string(&storage).unwrap());
+            println!("TODO: ADD");
         }
-        Action::Ls(_) => {
-            println!("LS");
-            let json_todo_repository = JSONTodoRepository {};
+        Action::Ls => {
+            let json_todo_repository = JSONTodoRepository {
+                file_path: &args.storage_path,
+            };
             let todo_controller = TodoController {
                 todo_repository: &json_todo_repository,
             };
             let todos = todo_controller.show_all();
-            for todo in todos {
-                println!("{}", todo.name)
+            if todos.is_empty() {
+                println!("The list is empty")
+            } else {
+                for todo in todos {
+                    println!("{}", todo.name)
+                }
             }
         }
     }
