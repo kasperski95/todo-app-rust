@@ -9,6 +9,7 @@ use anyhow::Result;
 use clap::{Args, Parser, Subcommand};
 use controllers::TodoController;
 use repositories::JSONTodoRepository;
+use std::io::stdout;
 
 #[derive(Args)]
 struct AddArgs {
@@ -42,17 +43,11 @@ fn main() -> Result<()> {
             let json_todo_repository = JSONTodoRepository {
                 file_path: &args.storage_path,
             };
-            let todo_controller = TodoController {
+            let mut todo_controller = TodoController {
                 todo_repository: &json_todo_repository,
+                writer: &mut stdout(),
             };
-            let todos = todo_controller.show_all();
-            if todos.is_empty() {
-                println!("The list is empty")
-            } else {
-                for todo in todos {
-                    println!("{}", todo.name)
-                }
-            }
+            todo_controller.show_all();
         }
     }
 
