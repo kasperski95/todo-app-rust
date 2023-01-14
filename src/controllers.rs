@@ -1,6 +1,4 @@
-pub struct Todo {
-    pub name: String,
-}
+use crate::models::Todo;
 
 pub trait TodoRepository {
     fn find_all(&self) -> Vec<Todo>;
@@ -15,15 +13,4 @@ impl TodoController<'_> {
     pub fn show_all(&self) -> Vec<Todo> {
         self.todo_repository.find_all()
     }
-}
-
-pub struct JSONTodoRepository {}
-impl TodoRepository for JSONTodoRepository {
-    fn find_all(&self) -> Vec<Todo> {
-        return Vec::from([Todo {
-            name: "foo".to_string(),
-        }]);
-    }
-
-    fn save(&self) -> () {}
 }

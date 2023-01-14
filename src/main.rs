@@ -1,11 +1,14 @@
 extern crate serde;
 extern crate serde_json;
 
-mod lib;
+mod controllers;
+mod models;
+mod repositories;
 
 use anyhow::Result;
 use clap::{Args, Parser, Subcommand};
-use lib::{JSONTodoRepository, TodoController};
+use controllers::TodoController;
+use repositories::JSONTodoRepository;
 use serde::{Deserialize, Serialize};
 
 #[derive(Args)]
