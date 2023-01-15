@@ -35,10 +35,10 @@ fn run_action(action: Action, todo_controller: &mut TodoController) {
             todo_controller.add(args.item);
         }
         Action::Ls => {
-            todo_controller.show_all();
+            todo_controller.ls();
         }
         Action::Rm(args) => {
-            todo_controller.remove(args.item);
+            todo_controller.rm(args.item);
         }
     }
 }

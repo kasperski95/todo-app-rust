@@ -12,7 +12,7 @@ pub struct TodoController {
 }
 
 impl TodoController {
-    pub fn show_all(&mut self) {
+    pub fn ls(&mut self) {
         let todos = self.todo_repository.find_all();
         if todos.is_empty() {
             self.writer.write(b"The list is empty\n").unwrap();
@@ -30,7 +30,7 @@ impl TodoController {
         self.writer.write(b"OK\n").unwrap();
     }
 
-    pub fn remove(&mut self, todo_name: String) {
+    pub fn rm(&mut self, todo_name: String) {
         self.todo_repository.remove(todo_name);
         self.writer.write(b"OK\n").unwrap();
     }
