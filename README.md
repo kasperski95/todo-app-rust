@@ -2,7 +2,7 @@
 
 
 
-This [throw away project](https://arkadiusz-kasprzyk.dev/articles/throw-away-projects) is a side-effect of learning Rust. The following were my learning objectives and goals for this project:
+This [throw away project](https://arkadiusz-kasprzyk.dev/articles/throw-away-projects) is a byproduct of me learning Rust. The following were my learning objectives and goals for this project:
 - Understanding the borrow checker
 - Defining a Command Line Interface
 - Making business logic unaware of Input/Output operations
