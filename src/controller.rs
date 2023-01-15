@@ -1,4 +1,4 @@
-use crate::models::Todo;
+use crate::model::Todo;
 use std::io::Write;
 pub trait TodoRepository {
     fn find_all(&self) -> Vec<Todo>;

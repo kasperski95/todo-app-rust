@@ -3,7 +3,7 @@ use std::fs;
 use std::path::PathBuf;
 extern crate serde_json;
 
-use crate::{controllers::TodoRepository, models::Todo};
+use crate::{controller::TodoRepository, model::Todo};
 
 #[derive(Debug, Deserialize, Serialize)]
 struct JSONContent {

@@ -2,14 +2,14 @@ extern crate serde;
 extern crate serde_json;
 
 mod cli;
-mod controllers;
-mod models;
-mod repositories;
+mod controller;
+mod model;
+mod repository;
 
 use anyhow::Result;
 use cli::{get_parsed_args, Action};
-use controllers::TodoController;
-use repositories::JSONTodoRepository;
+use controller::TodoController;
+use repository::JSONTodoRepository;
 use std::{io::stdout, path::PathBuf};
 
 fn main() -> Result<()> {
