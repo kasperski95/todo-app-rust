@@ -5,12 +5,12 @@ pub trait TodoRepository {
     fn save(&self) -> ();
 }
 
-pub struct TodoController<'a> {
-    pub writer: &'a mut dyn Write,
-    pub todo_repository: &'a dyn TodoRepository,
+pub struct TodoController {
+    pub writer: Box<dyn Write>,
+    pub todo_repository: Box<dyn TodoRepository>,
 }
 
-impl TodoController<'_> {
+impl TodoController {
     pub fn show_all(&mut self) {
         let todos = self.todo_repository.find_all();
         if todos.is_empty() {

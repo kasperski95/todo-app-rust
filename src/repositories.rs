@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
-use std::fs::read_to_string;
-use std::path::Path;
+
+use std::{fs::read_to_string, path::PathBuf};
 extern crate serde_json;
 
 use crate::{controllers::TodoRepository, models::Todo};
@@ -10,10 +10,10 @@ struct JSONContent {
     todos: Vec<Todo>,
 }
 
-pub struct JSONTodoRepository<'a> {
-    pub file_path: &'a Path,
+pub struct JSONTodoRepository {
+    pub file_path: PathBuf,
 }
-impl TodoRepository for JSONTodoRepository<'_> {
+impl TodoRepository for JSONTodoRepository {
     fn find_all(&self) -> Vec<Todo> {
         if !self.file_path.exists() {
             return Vec::new();

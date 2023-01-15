@@ -1,55 +1,37 @@
 extern crate serde;
 extern crate serde_json;
 
+mod cli;
 mod controllers;
 mod models;
 mod repositories;
 
 use anyhow::Result;
-use clap::{Args, Parser, Subcommand};
+use cli::{get_parsed_args, Action};
 use controllers::TodoController;
 use repositories::JSONTodoRepository;
-use std::io::stdout;
-
-#[derive(Args)]
-struct AddArgs {
-    item: String,
-    #[arg(short, long)]
-    storage_path: std::path::PathBuf,
-}
-
-#[derive(Subcommand)]
-enum Action {
-    Add(AddArgs),
-    Ls,
-}
-#[derive(Parser)]
-struct Cli {
-    #[clap(subcommand)]
-    action: Action,
-
-    #[arg(short, long)]
-    storage_path: std::path::PathBuf,
-}
+use std::{io::stdout, path::PathBuf};
 
 fn main() -> Result<()> {
-    let args = Cli::parse();
-
+    let args = get_parsed_args();
+    let mut todo_controller = create_todo_controller(args.storage_path);
     match args.action {
         Action::Add(_) => {
             println!("TODO: ADD");
         }
         Action::Ls => {
-            let json_todo_repository = JSONTodoRepository {
-                file_path: &args.storage_path,
-            };
-            let mut todo_controller = TodoController {
-                todo_repository: &json_todo_repository,
-                writer: &mut stdout(),
-            };
             todo_controller.show_all();
         }
     }
-
     Ok(())
+}
+
+fn create_todo_controller(storage_path: PathBuf) -> TodoController {
+    let json_todo_repository = Box::new(JSONTodoRepository {
+        file_path: storage_path,
+    });
+    TodoController {
+        todo_repository: json_todo_repository,
+        writer: Box::new(stdout()),
+    }
 }
