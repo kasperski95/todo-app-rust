@@ -31,4 +31,14 @@ impl App {
             .arg("ls")
             .assert()
     }
+
+    pub fn rm<T: AsRef<str>>(&self, item: T) -> Assert {
+        Command::cargo_bin("todo")
+            .unwrap()
+            .arg("--storage-path")
+            .arg(&self.storage_path)
+            .arg("rm")
+            .arg(item.as_ref())
+            .assert()
+    }
 }
