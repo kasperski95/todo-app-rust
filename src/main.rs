@@ -37,5 +37,8 @@ fn run_action(action: Action, todo_controller: &mut TodoController) {
         Action::Ls => {
             todo_controller.show_all();
         }
+        Action::Rm(args) => {
+            todo_controller.remove(args.item);
+        }
     }
 }

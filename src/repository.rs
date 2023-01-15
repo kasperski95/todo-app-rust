@@ -29,4 +29,14 @@ impl TodoRepository for JSONTodoRepository {
         let file_content = serde_json::to_string(&JSONContent { todos: todos }).unwrap();
         fs::write(&self.file_path, file_content).unwrap();
     }
+
+    fn remove(&self, todo_name: String) -> () {
+        let mut todos = self.find_all();
+        todos = todos
+            .into_iter()
+            .filter(|todo| !todo.name.starts_with(&todo_name))
+            .collect();
+        let file_content = serde_json::to_string(&JSONContent { todos }).unwrap();
+        fs::write(&self.file_path, file_content).unwrap();
+    }
 }

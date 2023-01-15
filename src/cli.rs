@@ -16,9 +16,14 @@ pub struct Cli {
 pub enum Action {
     Add(AddArgs),
     Ls,
+    Rm(RmArgs),
 }
 
 #[derive(Args)]
 pub struct AddArgs {
+    pub item: String,
+}
+#[derive(Args)]
+pub struct RmArgs {
     pub item: String,
 }
