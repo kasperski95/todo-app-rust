@@ -15,14 +15,7 @@ use std::{io::stdout, path::PathBuf};
 fn main() -> Result<()> {
     let args = get_parsed_args();
     let mut todo_controller = create_todo_controller(args.storage_path);
-    match args.action {
-        Action::Add(_) => {
-            println!("TODO: ADD");
-        }
-        Action::Ls => {
-            todo_controller.show_all();
-        }
-    }
+    run_action(args.action, &mut todo_controller);
     Ok(())
 }
 
@@ -33,5 +26,16 @@ fn create_todo_controller(storage_path: PathBuf) -> TodoController {
     TodoController {
         todo_repository: json_todo_repository,
         writer: Box::new(stdout()),
+    }
+}
+
+fn run_action(action: Action, todo_controller: &mut TodoController) {
+    match action {
+        Action::Add(_) => {
+            println!("TODO: ADD");
+        }
+        Action::Ls => {
+            todo_controller.show_all();
+        }
     }
 }
