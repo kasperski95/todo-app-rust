@@ -20,11 +20,11 @@ fn main() -> Result<()> {
 }
 
 fn create_todo_controller(storage_path: PathBuf) -> TodoController {
-    let json_todo_repository = Box::new(JSONTodoRepository {
+    let json_todo_repository = JSONTodoRepository {
         file_path: storage_path,
-    });
+    };
     TodoController {
-        todo_repository: json_todo_repository,
+        todo_repository: Box::new(json_todo_repository),
         writer: Box::new(stdout()),
     }
 }
