@@ -2,10 +2,10 @@
 
 
 
-This project is a result of my journey in learning Rust. The following were my learning objectives and goals for this project:
+This [throw away project](https://arkadiusz-kasprzyk.dev/articles/throw-away-projects) is a side-effect of learning Rust. The following were my learning objectives and goals for this project:
 - Understanding the borrow checker
 - Defining a Command Line Interface
-- Separating the business logic from Input/Output operations
+- Making business logic unaware of Input/Output operations
 - Creating an E2E test
 
 The project includes a basic implementation of a Todo app that allows users to add and list items, as well as remove them. The app uses JSON as the storage format.
