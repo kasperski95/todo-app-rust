@@ -4,7 +4,7 @@
 
 This project is a result of my journey in learning Rust. The following were my learning objectives and goals for this project:
 - Understanding the borrow checker
-- Defining a Command Line Interface (CLI)
+- Defining a Command Line Interface
 - Separating the business logic from Input/Output operations
 - Creating an E2E test
 
