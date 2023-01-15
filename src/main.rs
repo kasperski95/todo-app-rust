@@ -31,8 +31,8 @@ fn create_todo_controller(storage_path: PathBuf) -> TodoController {
 
 fn run_action(action: Action, todo_controller: &mut TodoController) {
     match action {
-        Action::Add(_) => {
-            println!("TODO: ADD");
+        Action::Add(args) => {
+            todo_controller.add(args.item);
         }
         Action::Ls => {
             todo_controller.show_all();

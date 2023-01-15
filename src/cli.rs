@@ -20,5 +20,5 @@ pub enum Action {
 
 #[derive(Args)]
 pub struct AddArgs {
-    item: String,
+    pub item: String,
 }
